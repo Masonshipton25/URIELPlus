@@ -10,9 +10,9 @@ If you are interested for more information, check out our [full paper](https://a
 
 + [Environment](#environment)
 + [Setup Instruction](#setup-instruction)
-+ [Database Integration Examples](#integrating-databases-examples)
++ [Database Integration Examples](#database-integration-examples)
 + [Imputation Examples](#imputation-examples)
-+ [Language Distance Calculation Examples](#calculating-distance-examples)
++ [Language Distance Calculation Examples](#language-distance-calculation-examples)
 + [Citation](#citation)
 
 ## Environment
@@ -28,7 +28,7 @@ To get started with URIEL+:
     u = uriel.URIELPlus()
     ```
 
-## Database Imtegration Examples
+## Database Integration Examples
 
 + Integrating One Database:
     ```python
@@ -80,7 +80,7 @@ To get started with URIEL+:
 
 + Calculate Distance Using Specific Features:
     ```python
-    print(u.new_custom_distance({features}, {languages}))
+    print(u.new_custom_distance({features}, {languages}, {source}))
     ```
 
 + Retrieve Language Vectors:
@@ -101,6 +101,8 @@ To get started with URIEL+:
 + Replace `{distance_type}` with a distance type (e.g., "featural") or a list (e.g., ["syntactic", "phonological"]). Must be single distance type for retrieving language vectors.
 + Replace `{features}` with a list of features (e.g., ["F_Germanic", "S_SVO", "P_NASAL_VOWELS"]).
 + Replace `{languages}`, `{language1}`, and `{language2}` with language codes (e.g., "stan1293", "hind1269").
++ Replace `{source}` with one database (e.g., "WALS") or all databases ('A').
++ Note: the default source is all databases.
 
 ## Citation
 
