@@ -21,7 +21,7 @@ Python 3.10.4 or higher. Details of dependencies are in `requirements.txt`.
 
 ## Setup Instruction
 
-To get started with URIEL+:
++ To get started with URIEL+:
     ```python
     import lang2vec.URIELPlus as uriel
 
@@ -52,7 +52,7 @@ To get started with URIEL+:
     ```
 
 + Replace `{database}` with `saphon`, `bdproto`, `grambank`, `apics`, or `ewave`.
-+ Replace `{databases}` with arguments `UPDATED_SAPHON`, `BDPROTO`, `GRAMBANK`, `APICS`, and/or `EWAVE` (e.g., "UPDATED_SAPHON", "BDPROTO", "EWAVE").
++ Replace `{databases}` with arguments `UPDATED_SAPHON`, `BDPROTO`, `GRAMBANK`, `APICS`, and/or `EWAVE` (e.g., `UPDATED_SAPHON`, `BDPROTO`, `EWAVE`).
 
 ## Imputation Examples
 
@@ -69,7 +69,7 @@ To get started with URIEL+:
 
 + Replace `{aggregation}` with `U` (union) or `A` (average).
 + Replace `{imputation_strategy}` with `midaspy`, `knn`, `softimpute`, or `mean`.
-+ Note: the default aggregation method is union.
++ Note: the default `{aggregation}` method is union.
 
 ## Language Distance Calculation Examples
 
@@ -98,11 +98,11 @@ To get started with URIEL+:
     print(u.confidence_score({language 1}, {language 2}, {distance_type}))
     ```
 
-+ Replace `{distance_type}` with a distance type (e.g., "featural") or a list (e.g., ["syntactic", "phonological"]). Must be single distance type for retrieving language vectors.
-+ Replace `{features}` with a list of features (e.g., ["F_Germanic", "S_SVO", "P_NASAL_VOWELS"]).
-+ Replace `{languages}`, `{language1}`, and `{language2}` with language codes (e.g., "stan1293", "hind1269").
-+ Replace `{source}` with one database (e.g., "WALS") or all databases ('A').
-+ Note: the default source is all databases.
++ Replace `{distance_type}` with a distance type (e.g., `featural`) or a list (e.g., [`syntactic`, `phonological`]). Must be single distance type for retrieving language vectors.
++ Replace `{features}` with a list of features (e.g., [`F_Germanic`, `S_SVO`, `P_NASAL_VOWELS`]).
++ Replace `{languages}`, `{language1}`, and `{language2}` with language codes (e.g., `stan1293`, `hind1269`).
++ Replace `{source}` with one database (e.g., `WALS`) or all databases (`A`).
++ Note: the default `{source}` is all databases.
 
 ## Citation
 
