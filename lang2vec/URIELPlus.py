@@ -31,7 +31,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 URIEL+ library for integrating new and updated databases into URIEL and robust distance calculations.
 
 Authors: Aditya Khan, Mason Shipton, David Anugraha, Kaiyao Duan, Phuong H. Hoang, Eric Khiu, A. Seza Doğruöz, En-Shiun Annie Lee
-Last modified: September 27, 2024
+Last modified: October 4, 2024
 '''
 
 class URIELPlus:
@@ -537,15 +537,14 @@ class URIELPlus:
         if not self.is_glottocodes() and not self.is_iso_codes():
             logging.error("Cannot retrieve English dialects if languages in URIEL+ are not all of either ISO 639-3 or Glottocode language representation.")
         eng_dialects = []
-        feats, feature_data, langs = self.feats[0], self.data[0], self.langs[0]
 
         feat_indices = []
         for feat in ['F_Macro-English', 'F_Guinea Coast Creole English', 'F_Pacific Creole English']:
-            feat_indices.append(np.where(feats == feat)[0][0])
+            feat_indices.append(np.where(self.feats[0] == feat)[0][0])
 
-        for lang in langs:
-            lang_index = np.where(langs == lang)[0][0]
-            if 1.0 in feature_data[lang_index][feat_indices[0]] and 0.0 in feature_data[lang_index][feat_indices[1]] and 0.0 in feature_data[lang_index][feat_indices[2]]:
+        for lang in self.langs[0]:
+            lang_index = np.where(self.langs[0] == lang)[0][0]
+            if 1.0 in self.data[0][lang_index][feat_indices[0]] and 0.0 in self.data[0][lang_index][feat_indices[1]] and 0.0 in self.data[0][lang_index][feat_indices[2]]:
                 eng_dialects.append(lang)
 
         if self.is_glottocodes():
@@ -569,7 +568,6 @@ class URIELPlus:
         """
         if not self.is_glottocodes() and not self.is_iso_codes():
             logging.error("Cannot retrieve English dialects if languages in URIEL+ are not all of either ISO 639-3 or Glottocode language representation.")
-        langs = self.langs[1]
         if self.is_glottocodes():
             SPANISH_DIALECTS = ["lore1243"]
             FRENCH_DIALECTS = ["caju1236", "gulf1242"]
@@ -577,12 +575,12 @@ class URIELPlus:
             GERMAN_DIALECTS = ["colo1254", "hutt1235", "midd1318", "midd1343", "nort2627", "north2628", "penn1240", "uppe1400"]
             MALAY_DIALECTS = ["ambo1250", "baba1267", "baca1243", "bali1279", "band1353", "bera1262", "buki1247", "cent2053", "coco1260", "jamb1236", "keda1251", "kota1275", "kupa1239", "lara1260", "maka1305", "mala1479", "mala1480", "mala1481", "nege1240", "nort2828", "papu1250", "patt1249", "saba1263", "sril1245", "teng1267"]
             ARABIC_DIALECTS = ["alge1239", "alge1240", "anda1287", "baha1259", "chad1249", "cypr1248", "dhof1235", "east2690", "egyp1253", "gulf1241", "hadr1236", "hija1235", "jude1264", "jude1265", "jude1266", "jude1267", "khor1274", "liby1240", "meso1252", "moro1292", "najd1235", "nort3139", "nort3142", "oman1239", "said1239", "sana1295", "suda1236", "taiz1242", "taji1248", "tuni1259", "uzbe1248"]
-            DIALECTS = {np.where(langs == "stan1288")[0][0]: SPANISH_DIALECTS,
-                        np.where(langs == "stan1290")[0][0]: FRENCH_DIALECTS,
-                        np.where(langs == "stan1293")[0][0]: ENGLISH_DIALECTS,
-                        np.where(langs == "stan1295")[0][0]: GERMAN_DIALECTS,
-                        np.where(langs == "stan1306")[0][0]: MALAY_DIALECTS,
-                        np.where(langs == "stan1318")[0][0]: ARABIC_DIALECTS}
+            DIALECTS = {np.where(self.langs[1] == "stan1288")[0][0]: SPANISH_DIALECTS,
+                        np.where(self.langs[1] == "stan1290")[0][0]: FRENCH_DIALECTS,
+                        np.where(self.langs[1] == "stan1293")[0][0]: ENGLISH_DIALECTS,
+                        np.where(self.langs[1] == "stan1295")[0][0]: GERMAN_DIALECTS,
+                        np.where(self.langs[1] == "stan1306")[0][0]: MALAY_DIALECTS,
+                        np.where(self.langs[1] == "stan1318")[0][0]: ARABIC_DIALECTS}
         elif self.is_iso_codes():
             SPANISH_DIALECTS = ["spq"]
             FRENCH_DIALECTS = ["frc"]
@@ -590,12 +588,12 @@ class URIELPlus:
             GERMAN_DIALECTS = ["gct", "geh", "gml", "gmh", "nds", "frs", "pdc", "sxu"]
             MALAY_DIALECTS = ["abs", "mbf", "btj", "mhp", "bpq", "bve", "bvu", "pse", "coa", "jax", "meo", "mqg", "mkn", "lrt", "mfp", "zlm", "xdy", "xmm", "zmi", "max", "pmy", "mfa", "msi", "sci", "vkt"]
             ARABIC_DIALECTS = ["arq", "aao", "xaa", "abv", "shu", "acy", "adf", "avl", "arz", "afb", "ayh", "acw", "yud", "aju", "yhd", "jye", "ayl", "acm", "ary", "ars", "apc", "ayp", "acx", "aec", "ayn", "apd", "acq", "abh", "aeb", "auz"]
-            DIALECTS = {np.where(langs == "spa")[0][0]: SPANISH_DIALECTS,
-                        np.where(langs == "fra")[0][0]: FRENCH_DIALECTS,
-                        np.where(langs == "eng")[0][0]: ENGLISH_DIALECTS,
-                        np.where(langs == "deu")[0][0]: GERMAN_DIALECTS,
-                        np.where(langs == "zsm")[0][0]: MALAY_DIALECTS,
-                        np.where(langs == "arb")[0][0]: ARABIC_DIALECTS}
+            DIALECTS = {np.where(self.langs[1] == "spa")[0][0]: SPANISH_DIALECTS,
+                        np.where(self.langs[1] == "fra")[0][0]: FRENCH_DIALECTS,
+                        np.where(self.langs[1] == "eng")[0][0]: ENGLISH_DIALECTS,
+                        np.where(self.langs[1] == "deu")[0][0]: GERMAN_DIALECTS,
+                        np.where(self.langs[1] == "zsm")[0][0]: MALAY_DIALECTS,
+                        np.where(self.langs[1] == "arb")[0][0]: ARABIC_DIALECTS}
 
         return DIALECTS
 
@@ -615,7 +613,6 @@ class URIELPlus:
         map_df = pd.read_csv(csv_path)
 
         for i, file in enumerate(self.files):
-            #I tried combining some of these lines but I ran into errors.
             langs_df = pd.DataFrame(self.langs[i], columns=['code'])
             merged_df = pd.merge(langs_df, map_df, on='code', how='outer')
             merged_df = merged_df.dropna()
@@ -693,7 +690,7 @@ class URIELPlus:
             Logging:
                 Error: Logs if the database is already integrated.
         """
-        if any(database in source for source in self.sources):
+        if any(database in source for source in self.sources[1]):
             logging.error(f'{database} database already integrated.')
 
     def _calculate_phylogeny_vectors(self):
@@ -818,6 +815,8 @@ class URIELPlus:
         logging.info("Updating feature data based on inferred features...")
         for source in self.sources[1]:
             self.combine_features(source, _u)
+
+        logging.info("Updated feature data based on inferred features complete.")
 
     def integrate_saphon(self, convert_glottocodes_param=False):
         """
@@ -1146,6 +1145,7 @@ class URIELPlus:
             Computes the union or average of feature data across sources in URIEL+.
 
             The union operation takes the maximum value across sources for each feature and language combination.
+            The average operation takes the average across sources for each feature and language combination.
 
             If caching is enabled, creates an npz file with the union or average of feature data across sources in URIEL+.
         """
@@ -1516,7 +1516,7 @@ class URIELPlus:
         logging.info(f"Best hyperparameter for {strategy} is {best_hyperparameter}")
         return best_hyperparameter
 
-    def _choose_hyperparameter(self, X_train, X_test, strategy, average_or_union,
+    def _choose_hyperparameter(self, X_train, X_test, strategy,
                           feature_types, missing_rate=0.2,
                           hyperparameter_range=range(3, 21, 3),
                           eval_metric='f1'):
@@ -1866,7 +1866,6 @@ class URIELPlus:
             imputed = np.round(imputed)
 
         if save_as_npz:
-            print("Hi...")
             df = pd.DataFrame(imputed, columns=combined_df_u.columns)
             df = df.fillna(-1)
             data = df.to_numpy()
@@ -1924,15 +1923,15 @@ class URIELPlus:
 
 
 
-    def map_new_distance_to_database(self, distance):
+    def map_new_distance_to_loaded_features(self, distance):
         """
-            Maps a distance type to the corresponding filename for URIEL+.
+            Maps a distance type to the corresponding loaded features for URIEL+.
 
             Args:
                 distance (str): The type of distance to map.
 
             Returns:
-                str: The filename corresponding to the distance type.
+                str: The loaded features corresponding to the distance type.
 
             Logging:
                 Error: Logs error if the distance type is not available in URIEL+.
@@ -1948,6 +1947,59 @@ class URIELPlus:
             return d[distance]
         logging.error(f"{distance} is not an available feature category in URIEL+. Feature categories are genetic, geographic, featural (syntactic, phonological, inventory, morphological).")
 
+    def is_available_distance_language(self, distance_type, lang):
+        """
+            Checks if a language contains at least one non-empty feature of the specified distance type.
+
+            Args:
+                distance_type (str): The type of distance to check.
+                lang (str): The language to check.
+
+            Returns:
+                bool: True if language has one non-empty feature of the specified distance type, False otherwise.
+        """
+        loaded_features_idx = self.map_new_distance_to_loaded_features(distance_type)
+
+        lang_index = np.where(self.langs[loaded_features_idx] == lang)[0][0]
+
+        if loaded_features_idx == 0 or loaded_features_idx == 2:
+            if not np.all(self.data[loaded_features_idx][lang_index] == -1.0):
+                return True   
+            return False
+
+        aggregated_data = np.max(self.data[1], axis=-1)
+
+        if self.fill_with_base_lang:
+            for i in range(len(self.langs[1])):
+                for parent, child in self.dialects.items():
+                    if self.langs[i] in child:
+                        for j in range(len(self.feats[1])):
+                            parent_data = aggregated_data[parent][j]
+                            if aggregated_data[i][j] == -1.0 and parent_data > -1.0:
+                                aggregated_data[i][j] = parent_data
+        
+        aggregated_data = np.expand_dims(aggregated_data, axis=-1)
+
+        if np.all(aggregated_data[lang_index] == -1.0):
+            return False
+        if distance_type == 'featural':
+            return True
+        
+        for feat_idx in range(len(self.feats[1])):
+            feature_prefix = self.feats[1][feat_idx][:2]
+            is_matching_feature = (
+                (distance_type == "syntactic" and feature_prefix == "S_") or
+                (distance_type == "phonological" and feature_prefix == "P_") or
+                (distance_type == "inventory" and self.feats[1][feat_idx][:4] == "INV_") or
+                (distance_type == "morphological" and feature_prefix == "M_")
+            )
+
+            if is_matching_feature:
+                if (aggregated_data[lang_index][feat_idx] > -1):
+                    return True
+                
+        return False
+    
     def get_available_distance_languages(self, distance_type):
         """
             Retrieves a list of languages that contain at least one non-empty feature of the specified distance type.
@@ -1958,36 +2010,33 @@ class URIELPlus:
             Returns:
                 list: A list of languages.
         """
-
-        db_index = self.map_new_distance_to_database(distance_type)
-
-        features, data_matrix, languages = self.feats[db_index], self.data[db_index], self.langs[db_index]
+        loaded_features_idx = self.map_new_distance_to_loaded_features(distance_type)
         
         available_languages = []
-        for lang_index in range(len(languages)):
-            flattened_data = data_matrix[lang_index].flatten()
+        for lang_index in range(len(self.langs[loaded_features_idx])):
+            flattened_data = self.data[loaded_features_idx][lang_index].flatten()
             if not np.all(np.isclose(flattened_data, -1.0)):
-                available_languages.append(languages[lang_index])
+                available_languages.append(self.langs[loaded_features_idx][lang_index])
 
         if distance_type in ["syntactic", "phonological", "inventory", "morphological"]:
             subdomain_languages = []
             languages_to_remove = available_languages.copy()
 
-            for feature_index in range(len(features)):
-                feature_prefix = features[feature_index][:2]
+            for feature_index in range(len(self.feats[loaded_features_idx])):
+                feature_prefix = self.feats[loaded_features_idx][feature_index][:2]
                 is_matching_feature = (
                     (distance_type == "syntactic" and feature_prefix == "S_") or
                     (distance_type == "phonological" and feature_prefix == "P_") or
-                    (distance_type == "inventory" and features[feature_index][:4] == "INV_") or
+                    (distance_type == "inventory" and self.feats[loaded_features_idx][feature_index][:4] == "INV_") or
                     (distance_type == "morphological" and feature_prefix == "M_")
                 )
 
                 if is_matching_feature:
-                    for lang_index in range(len(languages)):
-                        if languages[lang_index] in languages_to_remove:
-                            if any(data_matrix[lang_index][feature_index] > -1.0):
-                                subdomain_languages.append(languages[lang_index])
-                                languages_to_remove.remove(languages[lang_index])
+                    for lang_index in range(len(self.langs[loaded_features_idx])):
+                        if self.langs[loaded_features_idx][lang_index] in languages_to_remove:
+                            if any(self.data[loaded_features_idx][lang_index][feature_index] > -1.0):
+                                subdomain_languages.append(self.langs[loaded_features_idx][lang_index])
+                                languages_to_remove.remove(self.langs[loaded_features_idx][lang_index])
             
             if self.cache:
                 cache_file_path = os.path.join(self.cur_dir, "data", distance_type + "_distances_languages.txt")
@@ -2002,6 +2051,7 @@ class URIELPlus:
                 cache_file.write(','.join(available_languages))
 
         return available_languages
+
 
     def get_vector(self, category, *args):
         """
@@ -2024,21 +2074,19 @@ class URIELPlus:
         else:
             langs = [l for l in args]
 
-        database = self.map_new_distance_to_database(category)
-        languages = self.langs[database]
+        loaded_features_idx = self.map_new_distance_to_loaded_features(category)
+
         for lang in langs:
-            if lang not in languages:
+            if lang not in self.langs[loaded_features_idx]:
                 logging.error(f"Unknown language: {lang}.")
 
         vectors = {}
         for i in range(len(langs)):
-            lang_index = np.where(languages == langs[i])[0][0]
-            feats = self.feats[database]
-            feature_data = self.data[database]
+            # lang_index = np.where(self.langs[loaded_features_idx] == langs[i])[0][0]
             vector = []
-            for j in range(len(feats)):
-                if category in ['genetic', 'featural', 'geographic'] or (category == "morphological" and (feats[j])[:2] == 'M_') or (category == 'inventory' and (feats[j])[:4] == 'INV_') or (category == 'phonological' and (feats[j])[:2] == 'P_') or (category == 'syntactic' and (feats[j])[:2] == 'S_'):
-                    i_data = feature_data[lang_index][j]
+            for j in range(len(self.feats[loaded_features_idx])):
+                if category in ['genetic', 'featural', 'geographic'] or (category == "morphological" and (self.feats[loaded_features_idx][j])[:2] == 'M_') or (category == 'inventory' and (self.feats[loaded_features_idx][j])[:4] == 'INV_') or (category == 'phonological' and (self.feats[loaded_features_idx][j])[:2] == 'P_') or (category == 'syntactic' and (self.feats[loaded_features_idx][j])[:2] == 'S_'):
+                    i_data = self.data[loaded_features_idx][j]
                     if len(i_data) == 1:
                         vector.extend(i_data)
                     elif self.aggregation == 'U':
@@ -2089,7 +2137,7 @@ class URIELPlus:
         return vec
 
 
-    def _create_vectors(self, langs, database, list_shared_indices, vec_num=-1):
+    def _create_vectors(self, langs, loaded_features, list_shared_indices, vec_num=-1):
         """
             Creates feature vectors for a list of languages using shared feature indices.
 
@@ -2102,14 +2150,13 @@ class URIELPlus:
             Returns:
                 tuple: A tuple containing the list of language vectors and the updated vec_num.
         """
-        feats, feature_data, languages = self.feats[database], self.data[database], self.langs[database]
         lang_vectors = []
 
         with ThreadPoolExecutor() as executor:
             futures = [
                 executor.submit(
                     self._process_language,
-                    i, langs, feats, feature_data, languages, list_shared_indices, vec_num + i
+                    i, langs, self.feats[loaded_features], self.data[loaded_features], self.langs[loaded_features], list_shared_indices, vec_num + i
                 )
                 for i in range(len(langs))
             ]
@@ -2193,25 +2240,17 @@ class URIELPlus:
         for dist in distance_list:
             dist_start_time = time.time()
 
-            database = self.map_new_distance_to_database(dist)
+            loaded_features_idx = self.map_new_distance_to_loaded_features(dist)
 
             list_indices_with_data = []
             langs_no_info = []
 
-            if os.path.exists(os.path.join(self.cur_dir, "data", distance + "_distances_languages.txt")):
-                with open(os.path.join(self.cur_dir, "data", distance + "_distances_languages.txt")) as file:
-                    available_distance_languages = file.read().split(',')
-            else:
-                available_distance_languages = self.get_available_distance_languages(dist)
-
             # print(f"In new_distance, checking available distance languages: {time.time() - dist_start_time:.2f} seconds")
-
-            feats, feature_data, languages = self.feats[database], self.data[database], self.langs[database]
 
             for lang in langs:
                 # print(f"In new_distance, loading feature data for language {lang}: {time.time() - dist_start_time:.2f} seconds")
 
-                if lang not in available_distance_languages:
+                if not self.is_available_distance_language(dist, lang):
                     if len(langs) == 2:
                         logging.error(f"No {dist} information for language: {lang}. {lang}'s {dist} distance to other languages cannot be calculated.")
                     else:
@@ -2219,14 +2258,14 @@ class URIELPlus:
                         list_indices_with_data.append([-1])
                         continue
 
-                lang_index = np.where(languages == lang)[0][0]
+                lang_index = np.where(self.langs[loaded_features_idx] == lang)[0][0]
 
                 indices_with_values = [
-                    j for j, feat in enumerate(feats) if (dist in ['genetic', 'featural', 'geographic'] or
+                    j for j, feat in enumerate(self.feats[loaded_features_idx]) if (dist in ['genetic', 'featural', 'geographic'] or
                                                                 (dist == "morphological" and feat[:2] == 'M_') or
                                                                 (dist == 'inventory' and feat[:4] == 'INV_') or
                                                                 (dist == 'phonological' and feat[:2] == 'P_') or
-                                                                (dist == 'syntactic' and feat[:2] == 'S_')) and not all(value == -1.0 for value in feature_data[lang_index][j])
+                                                                (dist == 'syntactic' and feat[:2] == 'S_')) and not all(value == -1.0 for value in self.data[loaded_features_idx][lang_index][j])
                 ]
 
                 list_indices_with_data.append(indices_with_values)
@@ -2239,7 +2278,7 @@ class URIELPlus:
                 if len(shared_indices) == 0:
                     logging.error(f"No shared {dist} features between {langs[0]} and {langs[1]} for which the two languages have information.\nUnable to calculate {dist} distance.")
                 list_shared_indices = shared_indices
-                lang_vectors = self._create_vectors(langs, database, list_shared_indices)
+                lang_vectors = self._create_vectors(langs, loaded_features_idx, list_shared_indices)
                 angular_distances_list.append(self._angular_distance(lang_vectors[0], lang_vectors[1]))
                 logging.info(f"In new_distance, calculated angular distance for {dist} with 2 languages: {time.time() - dist_start_time} seconds")
 
@@ -2258,7 +2297,7 @@ class URIELPlus:
                 lang_vectors = []
                 vec_num = 0
                 for i in range(len(langs)):
-                    vec, vec_num = self._create_vectors(langs, database, list_shared_indices, vec_num)
+                    vec, vec_num = self._create_vectors(langs, loaded_features_idx, list_shared_indices, vec_num)
                     lang_vectors.append(vec)
 
                 flattened_lang_vectors = [sublist for group in lang_vectors for sublist in group]
@@ -2512,10 +2551,9 @@ class URIELPlus:
         else:
             langs = list(args)
 
-        languages = self.langs[0]
         # print(f"In new_distance, getting languages array: {time.time() - start_time} seconds")
 
-        if any(lang not in languages for lang in langs):
+        if any(lang not in self.langs[0] for lang in langs):
             logging.error(f"Unknown language: {lang}.")
         
         dist_start_time = time.time()
@@ -2533,20 +2571,17 @@ class URIELPlus:
             indices_with_values = []
             for idx in feat_indices:
                 if(idx >= 0 and idx <= 3717):
-                    languages = self.langs[0]
-                    lang_index = np.where(lang == languages)[0][0]
+                    lang_index = np.where(lang == self.langs[0])[0][0]
                     if(np.any(gen_feature_data[lang_index][idx] != -1.0)):
                         canCalculate = True
                         indices_with_values.append(idx)
                 elif(idx >= 3718 and idx <= 4016):
-                    languages = self.langs[2]
-                    lang_index = np.where(lang == languages)[0][0]
+                    lang_index = np.where(lang == self.langs[2])[0][0]
                     if(np.any(geo_feature_data[lang_index][idx - 3718] != -1.0)):
                         canCalculate = True
                         indices_with_values.append(idx)
                 else:
-                    languages = self.langs[1]
-                    lang_index = np.where(lang == languages)[0][0]
+                    lang_index = np.where(lang == self.langs[1])[0][0]
                     if source == 'A':
                         if(np.any(feat_feature_data[lang_index][idx - 4017] != -1.0)):
                             canCalculate = True
@@ -2574,7 +2609,7 @@ class URIELPlus:
             list_shared_indices = shared_indices
             lang_vectors = self._create_custom_vectors(langs, flattened_feats, list_shared_indices, source_num)
             dist = self._angular_distance(lang_vectors[0], lang_vectors[1])   
-            logging.info(f"In new_distance, calculated angular distance for {dist} with 2 languages: {time.time() - dist_start_time} seconds")  
+            logging.info(f"In new_distance, calculated angular distance for provided features with 2 languages: {time.time() - dist_start_time} seconds")  
             return dist  
         else:
             langs_no_shared_info = []
@@ -2676,23 +2711,22 @@ class URIELPlus:
             imputed = True
 
         def check_agreement(lang, distance_type="featural"):
-            database = self.map_new_distance_to_database(distance_type)
-            feats, feature_data, languages = self.feats[database], self.data[database], self.langs[database]
-            lang_index = np.where(languages == lang)[0][0]
+            loaded_features = self.map_new_distance_to_loaded_features(distance_type)
+            lang_index = np.where(self.langs[loaded_features] == lang)[0][0]
 
             if distance_type == "syntactic":
-                feat_mask = [feat[:2] == "S_" for feat in feats]
+                feat_mask = [feat[:2] == "S_" for feat in self.feats[loaded_features]]
             elif distance_type == "phonological":
-                feat_mask = [feat[:2] == "P_" for feat in feats]
+                feat_mask = [feat[:2] == "P_" for feat in self.feats[loaded_features]]
             elif distance_type == "inventory":
-                feat_mask = [feat[:4] == "INV_" for feat in feats]
+                feat_mask = [feat[:4] == "INV_" for feat in self.feats[loaded_features]]
             elif distance_type == "morphological":
-                feat_mask = [feat[:2] == "M_" for feat in feats]
+                feat_mask = [feat[:2] == "M_" for feat in self.feats[loaded_features]]
             else:
                 feat_mask = [True] * len(feats)
 
-                feats = [feat for i, feat in enumerate(feats) if feat_mask[i]]
-                feature_data = feature_data[:, feat_mask, :]
+                feats = [feat for i, feat in enumerate(self.feats[loaded_features]) if feat_mask[i]]
+                feature_data = self.data[loaded_features][:, feat_mask, :]
 
 
             agreement = []
@@ -2717,24 +2751,23 @@ class URIELPlus:
         agreement_score = (agreement2 + agreement1) / 2
 
         def check_missing_values(lang, distance_type="featural"):
-            database = self.map_new_distance_to_database(distance_type)
-            feats, feature_data, languages = self.feats[database], self.data[database], self.langs[database]
-            lang_index = np.where(languages == lang)[0][0]
+            loaded_features_idx = self.map_new_distance_to_loaded_features(distance_type)
+            lang_index = np.where(self.langs[loaded_features_idx] == lang)[0][0]
 
             if distance_type == "syntactic":
-                feat_mask = [feat[:2] == "S_" for feat in feats]
+                feat_mask = [feat[:2] == "S_" for feat in self.feats[loaded_features_idx]]
             elif distance_type == "phonological":
-                feat_mask = [feat[:2] == "P_" for feat in feats]
+                feat_mask = [feat[:2] == "P_" for feat in self.feats[loaded_features_idx]]
             elif distance_type == "inventory":
-                feat_mask = [feat[:4] == "INV_" for feat in feats]
+                feat_mask = [feat[:4] == "INV_" for feat in self.feats[loaded_features_idx]]
             elif distance_type == "morphological":
-                feat_mask = [feat[:2] == "M_" for feat in feats]
+                feat_mask = [feat[:2] == "M_" for feat in self.feats[loaded_features_idx]]
             else:
                 feat_mask = [True] * len(feats)
 
             # Apply the mask to filter features
-            feats = [feat for i, feat in enumerate(feats) if feat_mask[i]]
-            feature_data = feature_data[:, feat_mask, :]
+            feats = [feat for i, feat in enumerate(self.feats[loaded_features_idx]) if feat_mask[i]]
+            feature_data = self.data[loaded_features_idx][:, feat_mask, :]
 
             # Compute the proportion of missing values (-1) for each feature
             missing_value_proportions = []
@@ -2779,12 +2812,11 @@ class URIELPlus:
         """
         assert distance_type in ['genetic', 'geographic']
         def check_agreement(lang, distance_type):
-            database = self.map_new_distance_to_database(distance_type)
-            feats, feature_data, languages = self.feats[database], self.data[database], self.langs[database]
-            lang_index = np.where(languages == lang)[0][0]
+            loaded_features_idx = self.map_new_distance_to_loaded_features(distance_type)
+            lang_index = np.where(self.langs[loaded_features_idx] == lang)[0][0]
             agreement = []
-            for i in range(len(feats)):
-                data = feature_data[lang_index][i]
+            for i in range(len(self.feats[loaded_features_idx])):
+                data = self.data[loaded_features_idx][lang_index][i]
                 # Ignore all -1 values
                 data = [x for x in data if x != -1]
                 if len(data) == 0:
@@ -2803,14 +2835,13 @@ class URIELPlus:
         agreement_score = (agreement2 + agreement1) / 2
 
         def check_missing_values(lang, distance_type):
-            database = self.map_new_distance_to_database(distance_type)
-            feats, feature_data, languages = self.feats[database], self.data[database], self.langs[database]
-            lang_index = np.where(languages == lang)[0][0]
+            loaded_features_idx = self.map_new_distance_to_loaded_features(distance_type)
+            lang_index = np.where(self.langs[loaded_features_idx] == lang)[0][0]
 
             # Compute the proportion of missing values (-1) for each feature
             missing_value_proportions = []
-            for i in range(len(feats)):
-                data = feature_data[lang_index][i].tolist()
+            for i in range(len(self.feats[loaded_features_idx])):
+                data = self.data[loaded_features_idx][lang_index][i].tolist()
                 missing_value_proportions.append(data.count(-1) / len(data))
 
             # Average the missing value proportions across all features
