@@ -1,0 +1,2 @@
+include urielplus/database/urielplus_csvs/*.csv
+include urielplus/database/original_uriel/*.npz
