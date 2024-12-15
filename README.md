@@ -19,7 +19,7 @@ If you are interested for more information, check out our [full paper](https://a
 
 ## Environment
 
-Python 3.10.4 or higher. Details of dependencies are in `requirements.txt`.
+Python 3.10 or later, but earlier than Python 3.11. Details of dependencies are in `setup.py`.
 
 ## Setup Instruction
 
