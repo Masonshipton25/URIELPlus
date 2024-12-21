@@ -19,7 +19,7 @@ If you are interested for more information, check out our [full paper](https://a
 
 ## Environment
 
-Python 3.10 or later, but earlier than Python 3.11. Details of dependencies are in `setup.py`.
+Python 3.10 or later. If you're working with the `MIDASpy` extra dependencies, version of Python must be less than 3.11. Details of dependencies are in `setup.py`.
 
 ## Setup Instruction
 
