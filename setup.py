@@ -33,7 +33,14 @@ setup(
         "joblib>=1.4.2",
         "setuptools>=68.2.0",
     ],
+    extras_require={
+        "midaspy": [
+            "MIDASpy>=1.4.0",
+            "tensorflow<2.12.0",
+            "tensorflow-addons<0.20",
+        ]
+    },
     packages=find_packages(),
     include_package_data=True,
-    python_requires=">=3.10, <3.11",
+    python_requires=">=3.10",
 )
