@@ -29,9 +29,9 @@ Python 3.10 or later. If you're working with the `MIDASpy` extra dependencies, v
     ```
 
     ```python
-    from urielplus.urielplus import URIELPlus
+    from urielplus import urielplus
 
-    u = URIELPlus()
+    u = urielplus.URIELPlus()
     ```
 
 ## Configuration Options Examples
