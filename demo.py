@@ -10,6 +10,8 @@ u.set_cache(True)
 #Integrating databases
 u.integrate_databases()
 
+u.set_aggregation('A')
+
 #Imputation
 u.softimpute_imputation()
 

@@ -256,12 +256,12 @@ class URIELPlusDatabases(BaseURIEL):
             The function iterates through the available sources and combines features based on predefined sets of
             duplicate features.
         """
-        logging.info("Final updates to feature data...")
+        logging.info("Inferring feature data based on similar features.....")
         for source in self.sources[1]:
             self.combine_features(source, _u)
 
 
-        logging.info("Final updates to feature data complete.")
+        logging.info("Inferred feature data based on similar features.")
 
 
     def integrate_saphon(self, convert_glottocodes_param=False):

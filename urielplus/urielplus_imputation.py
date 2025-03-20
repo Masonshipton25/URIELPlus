@@ -75,8 +75,7 @@ class URIELPlusImputation(BaseURIEL):
                             if dataUnknown and parentDataKnown:
                                 aggregated_data[lang_idx][feat_idx] = parent_data
        
-        if self.aggregation == 'U':
-            aggregated_data = np.expand_dims(aggregated_data, axis=-1)
+        aggregated_data = np.expand_dims(aggregated_data, axis=-1)
        
         self.data[1] = aggregated_data
 
